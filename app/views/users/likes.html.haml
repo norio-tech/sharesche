@@ -1,0 +1,24 @@
+/ 指定されたコードを貼り付けてください
+.main.user-show
+  .container
+    .user
+      %img{:src => "/user_images/#{@user.image_name}"}/
+      %h2= @user.name
+      %p= @user.email
+      - if @user.id == @current_user.id
+        = link_to("編集", "/users/#{@user.id}/edit")
+    %ul.user-tabs
+      %li= link_to("投稿", "/users/#{@user.id}")
+      %li.active= link_to("いいね!", "/users/#{@user.id}/likes")
+    / 変数@likesに対してeach文を用いてください
+    - @likes.each do |like|
+      / 変数postを定義してください
+      - post = Post.find_by(id: like.post_id)
+      .posts-index-item
+        .post-left
+          %img{:src => "/user_images/#{post.user.image_name}"}/
+        .post-right
+          .post-user-name
+            = link_to(post.user.name, "/users/#{post.user.id}")
+          = link_to(post.content, "/posts/#{post.id}")
+      / each文のendを追加してください

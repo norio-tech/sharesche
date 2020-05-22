@@ -1,0 +1,16 @@
+.users-edit
+  .container
+    .form-heading アカウント編集
+    .form.users-form
+      .form-body
+        - @user.errors.full_messages.each do |message|
+          .form-error
+            = message
+        = form_tag("/users/#{@user.id}/update", {multipart: true}) do
+          %p ユーザー名
+          %input{:name => "name", :value => "#{@user.name}"}/
+          %p メールアドレス
+          %input{:name => "email", :value => "#{@user.email}"}/
+          = link_to("パスワードを変更する","/users/#{@user.id}/editpass")
+          %div= link_to("退会する","/users/#{@user.id}/withdraw")
+          %input{:type => "submit", :value => "保存"}/

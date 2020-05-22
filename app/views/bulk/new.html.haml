@@ -1,0 +1,73 @@
+.new-bult
+  =form_with model: [@schedule,@plan],url: schedule_bulk_index_path, local: true do |f|
+    .breadcrumbs
+      = link_to "HOME",schedules_path
+      %i.angle.double.right.icon
+      = link_to "スケジュール",schedule_path(id:params[:schedule_id],month: params[:month])
+      %i.angle.double.right.icon
+    .schedule-name
+      = @schedule.name
+    .form.plan-form
+      .form-body
+        - @plan.errors.full_messages.each do |message|
+          .form-error
+            = message
+        - if !@errmsg.blank?
+          .form-error
+            = @errmsg
+        .field
+          .field-label
+            = f.label :title
+            %span.must （必須）
+          .ui.input.input-text
+            = f.text_field :title
+        .field
+          .field-label
+            = f.label :time
+          .ui.input
+            = f.time_field :start_time
+          \-
+          .ui.input
+            = f.time_field :end_time
+          .annotation *時間は半角で入力してください
+        .field
+          .field-label
+            = f.label :place
+          .ui.input.input-text
+            = f.text_field :place
+        .field
+          .field-label
+            = f.label :content
+          .ui.form
+            = f.text_area :content,rows:3
+        = f.hidden_field :month,value: @m
+        = f.hidden_field :schedule_id,value: params[:schedule_id]
+      %h3
+        = @m[0,4] + "/" + @m[4,2]
+      - i = 1
+      - imonth = @m[4,2].to_i
+      %table.plan-table
+        %tr
+          %thead
+            %th.th-day 日付
+            %th.th-plan 予定
+        %tbody
+        - while i <= @eom.to_i
+          %tr
+            - plan_day = (@m + i.to_s.rjust(2,"0")).to_date
+            - disp_day = i.to_s + "（" + @wd[plan_day.wday] + "）"
+            = content_tag(:td, disp_day , class:"#{isholiday(plan_day)}")
+            %td.plan-right
+              %label
+                /- if eval("params[:set#{i}]")
+                - if params[:"set#{i}"]
+                  /%input{checked: "checked", name: "set#{i.to_s}", type: "checkbox",class: "ui checkbox"}/
+                  = f.check_box name:"set#{i.to_s}",class: "ui checkbox"
+                - else
+                  = f.check_box "set#{i.to_s}",class: "ui checkbox"
+                  /%input{ name: "set#{i.to_s}",type: "checkbox",class: "ui checkbox"}/
+                設定する
+            - i += 1
+      .actions
+        = f.submit "登録", class: 'ui primary button'
+      .clear

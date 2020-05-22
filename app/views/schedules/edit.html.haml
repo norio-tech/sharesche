@@ -1,0 +1,39 @@
+.edit-schedule
+  %h1
+    スケジュール編集
+  .breadcrumbs
+    = link_to "HOME",schedules_path
+    %i.angle.double.right.icon
+  .form-error
+    - @schedule.errors.full_messages.each do |message|
+      = message
+    = @errmsg
+  = form_with model:@schedule ,local: true do |f|
+    .field
+      .field-label
+        = f.label :name
+        %span.must
+          必須
+      .ui.input.input-text
+        = f.text_field :name
+    .ui.form
+      .field
+        = f.label :message
+        = f.text_area :message,rows:3
+    .field
+      .field-label
+        = f.label :sharesche_key
+      .ui.input.input-text
+        = f.text_field :sharesche_key,pattern: "^[0-9A-Za-z]+$"
+      %p.annotation *半角英数字のみ
+      %p.annotation *シェアッシュキーを設定するとスケジュールを共有できます
+    .field
+      .field-label
+        = f.label :password
+      .ui.input.input-text
+        = f.text_field :password,pattern: "^[0-9A-Za-z]+$"
+      %p.annotation *半角英数字のみ
+      %p.annotation *スケジュールパスワードを設定すると共有時にパスワードの入力が必須になります
+    .actions
+      = link_to "削除", schedule_path(id:params[:id]), method: "delete" ,class:"ui red basic button"
+      = f.submit "登録", class: 'ui primary button'

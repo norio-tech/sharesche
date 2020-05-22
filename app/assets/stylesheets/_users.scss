@@ -1,0 +1,39 @@
+.input-form{
+  //new-registration
+  @include form_set();
+  .registrations-header{
+    padding:10px;
+  }
+  .registrations-form{
+    padding:10px;
+    .field{
+      margin-top:10px;
+      .input-text{
+        @include input_text();
+      }
+    }
+    .actions{
+      margin:10px 0;
+      display:flex;
+      justify-content: flex-end;
+    }
+  }
+  //new-session
+  .new-session-header{
+    padding:10px;
+  }
+  .new-session-form{
+    padding:10px;
+    .field{
+      margin-top:10px;
+      .input-text{
+        @include input_text();
+      }
+    }
+    .actions{
+      margin:10px 0;
+      display:flex;
+      justify-content: flex-end;
+    }
+  }
+}

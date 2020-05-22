@@ -1,0 +1,57 @@
+.new-bult{
+  @include form_set();
+  padding:10px;
+  .input-text{
+    @include input_text();
+  }
+  .actions{
+    margin:10px 0;
+    display:flex;
+    justify-content: flex-end;
+  }
+  .plan-table{
+    @include table_border();
+    border-radius:10px;
+    width:100%;
+    table-layout:fixed;
+    margin:0 auto;
+    line-height:2;
+    thead{
+      background-color:#afa;
+      th{
+        text-align:center;
+        font-weight:bold;
+        @include table_border();
+      }
+      th.th-day{
+        width:70px;
+      }
+    }
+    tbody{
+      td{
+        @include table_border();
+        padding:5px;
+        .plan-right{
+          width:90%;
+        }
+      }
+      .today{
+        background-color:#d5f3d5;
+      }
+      .holiday ,.sunday{
+        color:red;
+        background-color:#ffdddd;
+      }
+      .saturday{
+        color:blue;
+        background-color:#ddddff;
+      }
+      .plan-right{
+        line-height:1.3em;
+      }
+      .plan-add-button{
+        float:right;
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+.schedules-container
+  %h1.schedules-heading &#x30B9;&#x30B1;&#x30B8;&#x30E5;&#x30FC;&#x30EB;&#x4E00;&#x89A7;
+  = link_to "/schedules/new",class:"schedules-new-btn" do
+    %span.btn.schedule-new-btn &#x30B9;&#x30B1;&#x30B8;&#x30E5;&#x30FC;&#x30EB;&#x4F5C;&#x6210;
+  %ul.schedule-tabs
+    %li= link_to("スケジュール", "/schedules/index")
+    %li.active= link_to("フォロー", "/schedules/indexfollow")
+  - @schedules.order("id").each do |schedule|
+    .schedules-index-item
+      - if schedule.sharesche_key == schedule.chkkey
+        = link_to("/show/#{schedule.sharesche_key}/#{@m}") do
+          .schedule-name
+            = schedule.name
+          .schedule-message
+            = simple_format(schedule.message)
+          .author
+            \&#x4F5C;&#x6210;&#x8005;&#xFF1A;#{schedule.User.name}
+      - else
+        .schedule-name
+          = schedule.name
+        = succeed "\">" do
+          .updated-key
+        = シェアッシュキーが変更されました
+      .author
+        \&#x4F5C;&#x6210;&#x8005;&#xFF1A;#{schedule.User.name}
+    = link_to(/show/#{schedule.chkkey}/#{@m}/follow_destroy, {method: post}) do
+      %span.fa.fa-heart.like-btn-unlike.right &#x30D5;&#x30A9;&#x30ED;&#x30FC;&#x4E2D;

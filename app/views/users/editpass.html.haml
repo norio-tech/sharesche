@@ -1,0 +1,19 @@
+.users-edit
+  .container
+    .form-heading アカウント編集
+    .form.users-form
+      .form-body
+        - @user.errors.full_messages.each do |message|
+          .form-error
+            = message
+        - if !@errmsg.blank?
+          .form-error
+            = @errmsg
+        = form_tag("/users/#{@user.id}/updatepass") do
+          %p 現在のパスワード
+          %input{:name => "password_before", :required => "", :type => "password"}/
+          %p 新しいパスワード
+          %input{:name => "password_after1", :required => "", :type => "password"}/
+          %p 新しいパスワードを再入力
+          %input{:name => "password_after2", :required => "", :type => "password"}/
+          %input{:type => "submit", :value => "保存"}/

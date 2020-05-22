@@ -1,0 +1,9 @@
+.pass
+  .input-pass{:style => "margin-top:40px"}
+    = form_tag("/show/#{params[:sharesche_key]}/input_pass") do
+      %p スケジュールパスワードを入力してください
+      - if !@errmsg.blank?
+        .form-error
+          = @errmsg
+      %input{:name => "password"}/
+      %input{:type => "submit", :value => "入力"}/

@@ -1,0 +1,142 @@
+*{
+  box-sizing: border-box;
+}
+html{
+  //font-family: "ヒラギノ角ゴ","YuGothic","Yu Gothic","Meiryo","sans-serif";
+  font-family:"segoe ui",meiryo,"yu gothic","hiragino kaku gothic pron",sans-serif;
+  color:#222;
+}
+body{
+  margin:0;
+  background-color:$bg_color;
+  //height:auto;
+  min-height:1vh;
+  height:auto;
+  width:100%;
+}
+a{
+  text-decoration:none;
+  color:#222;
+}
+.annotation{
+  font-size:12px;
+  color:#e44c4c;
+}
+h1              { font-size: 2em; font-weight: bold;}
+h2              { font-size: 1.5em; font-weight: bold;}
+h3              { font-size: 1.17em; font-weight: bold;}
+h4              { margin: 1.12em 0 }
+h5              { font-size: .83em; }
+h6              { font-size: .75em; }
+.field_with_errors{
+  all:inherit;
+}
+.must {
+	background: #FF1A00;
+	color: #FFF;
+	border-radius: 3px;
+	font-size: 10px;
+	padding: 3px 5px;
+	letter-spacing: 0.2em;
+}
+.annotation{
+  font-size:12px;
+  color:#e44c4c;
+}
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.breadcrumbs{
+  margin-bottom:10px;
+}
+/* ヘッダー =============================*/
+
+.header{
+  height:50px;
+  width: 100%;
+  background-color:#575a5b;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  .header-logo{
+    padding-top:5px;
+    padding-left:5px;
+    .logo{
+      width:150px;
+    }
+  }
+  .header-menus{
+    list-style:none;
+    display:flex;
+    margin-right:10px;
+    li{
+      margin:0 5px;
+      a{
+        color:white;
+      }
+    }
+  }
+  #nav-drawer{
+    display:none;
+  }
+}
+
+
+/* トップページ（メイン） =============================*/
+.top-main{
+  width:100%;
+  background-color:#9ce7e4;
+  padding:20px 0 30px;
+
+  .top-message{
+    text-align: center;
+    .top-img{
+      width:120px;
+    }
+    .top-sharesche-form{
+      background-color:$bg_color;
+      width:320px;
+      height:140px;
+      padding-top:10px;
+      margin:0 auto;
+      border-radius:10px;
+    }
+  }
+}
+
+/* トップページ（howto） =============================*/
+.how-to{
+  padding:20px 0;
+  background-color:$bg_color;
+  text-align:center;
+  width:100%;
+  .how-to-container{
+    border:solid;
+    border-color:#b1b3b4;
+    border-width:1px;
+    width:90%;
+    max-width:500px;
+    margin:10px auto;
+    padding:10px 0;
+    border-radius:10px;
+    img{
+      width:90%;
+      max-width:500px;
+    }
+  }
+}
+/* フッター =============================*/
+footer {
+  padding: 10px;
+  background-color:#575a5b;
+  p{
+    color: #b3aeb5;
+    font-size: 12px;
+  }
+  a{
+    color: #b3aeb5;
+    font-size: 12px;
+  }
+}

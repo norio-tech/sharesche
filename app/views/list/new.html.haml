@@ -1,0 +1,50 @@
+.new-list
+  .form-heading 
+    %h1 新規リスト作成
+  .breadcrumbs
+    = link_to "HOME",schedules_path
+    %i.angle.double.right.icon
+  .list-form
+    .form-body
+      -@list.errors.full_messages.each do |message|
+        .form-error
+          = message
+      =form_with model:@list,url: list_index_path, local: true do |f|
+        =@error_message
+        .field
+          .field-label
+            = f.label :name
+            %span.must （必須）
+          .ui.input.input-text
+            = f.text_field :name,required: true
+        .actions
+          .empty
+          = f.submit "登録", class: 'ui primary button'
+        .schedules-container
+          = f.collection_check_boxes :schedule_ids,@schedules,:id,:name do | schedule |
+            .schedules-index__item
+              = schedule.label do
+                .schedule-left
+                  .ui.checkbox
+                    = schedule.check_box
+                    %label
+                .schedule-right
+                  .schedule-name
+                    = schedule.object.name
+                  .schedule-message
+                    = simple_format(schedule.object.message)
+          = f.collection_check_boxes :schedule_ids,@follow_schedules,:id,:name do | schedule |
+            .schedules-index__item
+              = schedule.label do
+                .schedule-left
+                  .ui.checkbox
+                    = schedule.check_box
+                    %label
+                .schedule-right
+                  .schedule-user
+                    作成者:
+                    = schedule.object.user_name
+                  .schedule-name
+                    = schedule.object.name
+                  .schedule-message
+                    = simple_format(schedule.object.message)

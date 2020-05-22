@@ -1,0 +1,44 @@
+.new-plan
+  .form-heading 
+    %h1 新規予定入力
+  .breadcrumbs
+    = link_to "HOME",schedules_path
+    %i.angle.double.right.icon
+    = link_to "スケジュール",schedule_path(id:params[:schedule_id],month: @plan_day.to_date.to_s(:month))
+    %i.angle.double.right.icon
+  .plan-form
+    .form-body
+      -@plan.errors.full_messages.each do |message|
+        .form-error
+          = message
+      =form_with model: [@schedule,@plan],url: schedule_plans_path, local: true do |f|
+        =@error_message
+        .field
+          .field-label
+            = f.label :title
+            %span.must （必須）
+          .ui.input.input-text
+            = f.text_field :title
+        .field
+          .field-label
+            = f.label :time
+          .ui.input
+            = f.time_field :start_time
+          \-
+          .ui.input
+            = f.time_field :end_time
+          .annotation *時間は半角で入力してください
+        .field
+          .field-label
+            = f.label :place
+          .ui.input.input-text
+            = f.text_field :place
+        .field
+          .field-label
+            = f.label :content
+          .ui.form
+            = f.text_area :content,rows:3
+        = f.hidden_field :plan_day,value: @plan_day
+        .actions
+          .empty
+          = f.submit "登録", class: 'ui primary button'

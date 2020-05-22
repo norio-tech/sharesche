@@ -1,0 +1,80 @@
+.schedule-show
+  .breadcrumbs
+    = link_to "HOME",schedules_path
+    %i.angle.double.right.icon
+  %h3.schedule-name
+    = @schedule.name
+  - if !@schedule.message.blank?
+    .disp-schedule-message
+      = simple_format(@schedule.message)
+  %h3.schedule-month
+    = @m[0,4] + "/" + @m[4,2]
+  .schedule-setting
+    %span.select-month
+      = link_to schedule_path(id:@schedule.id,month: @pm),class:"prev-month" do
+        %i.angle.double.left.icon
+        前月
+      ||
+      = link_to schedule_path(id:@schedule.id,month: @nm),class:"next-month" do
+        次月
+        %i.angle.double.right.icon
+    = link_to "一括登録",new_schedule_bulk_path(schedule_id: @schedule.id,month: @m),class:"all-edit mini ui red button"
+  - i = 1
+  
+  - imonth = @m[4,2].to_i
+  %table.plan-table
+    %thead
+      %tr
+        %th.th-day 日付
+        %th.th-plan 予定
+    %tbody
+    - while i <= @eom.to_i
+      %tr
+        - plan_day = (@m + i.to_s.rjust(2,"0")).to_date
+        - disp_day = i.to_s + "（" + @wd[plan_day.wday] + "）"
+        = content_tag(:td, disp_day , class:"plan-left #{isholiday(plan_day)}")
+        - today = ""
+        - if plan_day == Date.current
+          - today = "today"
+        %td{class: "plan-right #{today}"}
+          - @plans.where(plan_day: plan_day).each do |plan|
+            - plan_time = ""
+            - if !plan.start_time.blank?
+              - plan_time = plan.start_time.to_s(:hhmm)
+            - if !plan.end_time.blank?
+              - plan_time += "-" + plan.end_time.to_s(:hhmm)
+            .disp-plan.ui.accordion.clearfix
+              .disp-plan-title.title
+                = plan.title
+                %i.dropdown.icon
+              .content
+                - if !plan_time.blank?
+                  .disp-plan-time
+                    = plan_time
+                - if !plan.place.blank?
+                  .disp-plan-place
+                    = plan.place
+                - if !plan.content.blank?
+                  .disp-plan-content
+                    = simple_format(plan.content)
+                .action
+                  /= link_to "編集",edit_schedule_plan_path(schedule_id: params[:id],id: plan.id),class:"mini ui button plan-edit-button"
+                  = link_to new_schedule_plan_comment_path(schedule_id: params[:id],plan_id: plan.id),class:"ui edit icon plan-edit-button" do
+                    %i.comment.outline.icon.plan-comment-icon
+                  = link_to edit_schedule_plan_path(schedule_id: params[:id],id: plan.id),class:"ui edit icon plan-edit-button" do
+                    %i.edit.icon.plan-edit-icon
+                -if !plan.comments.empty?
+                  .comments
+                    -plan.comments.each do |comment|
+                      .comment-data
+                        .comment-upper
+                          .comment-user
+                            =comment.user.name
+                          .comment-message
+                            =simple_format(comment.message)
+                        .comment-lower
+                          .empty
+                          .comment-created-at
+                            =comment.created_at
+          = link_to "予定を追加",new_schedule_plan_path(schedule_id:params[:id] ,plan_day:plan_day.to_s),class:"mini ui teal button plan-add-button"
+        - i += 1

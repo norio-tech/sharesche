@@ -1,0 +1,19 @@
+.input-form
+  .new-session-header
+    %h1 ログイン
+  .new-session-form
+    = form_with model: @user, url: user_session_path, local: true do | f |
+      = @error_message
+      .field
+        .field-label
+          = f.label :email
+        .ui.input.input-text
+          = f.email_field :email
+      .field
+        .field-label
+          = f.label :password
+        .ui.input.input-text
+          = f.password_field :password, autocomplete: "off"
+      .actions
+        = f.submit "ログイン", class: 'ui primary button'
+

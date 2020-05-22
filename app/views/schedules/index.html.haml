@@ -1,0 +1,25 @@
+.schedules-index
+  %h1 
+    スケジュール一覧
+  = link_to "スケジュール作成" ,new_schedule_path,class:"ui teal button"
+    
+  .ui.top.attached.tabular.menu
+    =link_to schedules_path do
+      .item.active
+        %i.calendar.alternate.outline.icon
+    =link_to follow_schedules_path do
+      .item
+        %i.share.alternate.icon
+    =link_to list_index_path do
+      .item
+        %i.list.icon
+  - @schedules.order("id").each do |schedule|
+    .schedules-index__item
+      = link_to schedule_path(id: schedule.id, month: Date.current.to_s(:month)) do
+        .schedule-name
+          = schedule.name
+        .schedule-message
+          = simple_format(schedule.message)
+      .action
+        = link_to "タイトル編集",edit_schedule_path(id: schedule.id),class:"mini ui teal button schedule-edit-button"
+

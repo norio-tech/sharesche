@@ -1,0 +1,43 @@
+.new-list,.edit-list{
+  @include form_set();
+  padding:10px;
+  .input-text{
+    @include input_text();
+  }
+  .actions{
+    margin:10px 0;
+    display:flex;
+    justify-content: space-between;
+  }
+  @include container();
+  .schedules-container{
+    border-top:solid 1px #d4d4d5;
+    max-height:70vh;
+    overflow-y:scroll;
+    .schedules-index__item {
+      padding: 10px 30px;
+      background-color: white;
+      display: table;
+      width: 100%;
+      border:solid 1px #d4d4d5;
+      border-top:none;
+      label{
+        display:flex;
+        .schedule-left{
+          width:20px;
+          display:flex;
+          align-items:center;
+        }
+        .schedule-right{
+          margin-left:10px;
+          .schedule-name{
+            font-weight:bold;
+          }
+          .schedule-edit-button{
+            float:right;
+          }
+        }
+      }
+    }
+  }
+}

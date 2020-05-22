@@ -1,0 +1,37 @@
+.top-main
+  .top-message
+    = image_tag("top_img.png",class: "top-img")
+    %p
+      シェアッシュで個人・グループのスケジュールを管理し共有しよう！
+    .top-sharesche-form
+      %p
+        シェアッシュキーで検索！
+      = form_with url:search_follow_schedules_path,method: :get,local:true do | form |
+        .ui.search
+          .ui.icon.input
+            =form.text_field :sharesche_key,placeholder: "検索",required: true,pattern: "^[0-9A-Za-z]+$"
+            %i.search.icon
+          =form.submit class:"ui red button", value: "検索！",data: { disable_with: "検索中" }
+        .annotation
+          ＊半角英数字で入力してください
+        - if !@errmsg.blank?
+          .form-error
+            = @errmsg
+    .alink
+      - if current_user
+        = link_to "ユーザーページへ移動",schedules_path
+      - else
+        = link_to "新規登録",new_user_registration_path
+        \/
+        = link_to "ログイン",new_user_session_path 
+.how-to
+  %p
+    使い方
+  .how-to-container
+    = image_tag("howtouse01.png")
+    %p
+      作成したスケジュールの”シェアッシュキー”を共有しましょう
+  .how-to-container
+    = image_tag("howtouse02.png")
+    %p
+      ”シェアッシュキー”を入力すると作成したスケジュールを見ることができます

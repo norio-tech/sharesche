@@ -1,0 +1,37 @@
+
+---
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      schedule: スケジュール
+      plan: 予定
+      comment: コメント
+      list: リスト
+    attributes:
+      user:
+        id: ID
+        created_at: 登録日時
+        updated_at: 更新日時
+        email: メールアドレス
+        name: ユーザー名
+        password: パスワード
+        password_confirmation: パスワード確認用
+      schedule:
+        name: スケジュール名
+        message: メッセージ
+        password: スケジュールパスワード
+        sharesche_key: シェアッシュキー
+      plan:
+        title: タイトル
+        plan_day: 予定日
+        time: 時刻
+        start_time: 開始時刻
+        end_time: 終了時刻
+        place: 場所
+        content: 内容
+      comment:
+        message: メッセージ
+      list:
+        name: リスト名
+        

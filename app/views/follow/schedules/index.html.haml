@@ -1,0 +1,25 @@
+.schedules-index
+  %h1 
+    フォロー一覧
+  = link_to "スケジュール作成" ,new_schedule_path,class:"ui teal button"
+    
+  .ui.top.attached.tabular.menu
+    =link_to schedules_path do
+      .item
+        %i.calendar.alternate.outline.icon
+    =link_to follow_schedules_path do
+      .item.active
+        %i.share.alternate.icon
+    =link_to list_index_path do
+      .item
+        %i.list.icon
+  - @follows.order("id").each do |follow|
+    .schedules-index__item
+      = link_to follow_schedule_path(id: follow.schedule.id, month: Date.current.to_s(:month)) do
+        .schedule-name
+          = follow.schedule.name
+        .schedule-message
+          = simple_format(follow.schedule.message)
+        .schedule-user
+          作成者:
+          = follow.schedule.user.name

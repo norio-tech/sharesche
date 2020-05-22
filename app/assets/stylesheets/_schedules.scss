@@ -1,0 +1,182 @@
+.schedules-index{
+  @include container();
+  &__item {
+    padding: 20px 30px;
+    background-color: white;
+    overflow: hidden;
+    display: table;
+    width: 100%;
+    border:solid 1px #d4d4d5;
+    border-top:none;
+    .schedule-name{
+      font-weight:bold;
+    }
+    .schedule-edit-button{
+      float:right;
+    }
+  }
+}
+.new-schedule,.edit-schedule{
+  @include form_set();
+  padding:10px;
+  .input-text{
+    @include input_text();
+  }
+  .actions{
+    margin:10px 0;
+    display:flex;
+    justify-content: space-between;
+  }
+}
+.schedule-show{
+  padding:10px 0;
+  max-width:600;
+  width:90%;
+  margin:0 auto;
+  .follow{
+    .like-btn-unlike{
+      color:rgb(255, 0, 212);
+    }
+    .like-btn{
+      color:gray;
+    }
+  }
+  .disp-schedule-message{
+    padding: 10px ;
+    background-color: white;
+    overflow: hidden;
+    display: table;
+    width: 100%;
+    border:solid 1px #d4d4d5;
+    border-radius:10px;
+  }
+  .schedule-month{
+    margin-top:10px;
+  }
+  .schedule-setting{
+    margin-top:5px;
+    height:30px;
+    .select-month{
+      font-size:16px;
+    }
+    .all-edit{
+      //margin-bottom:5px;
+      float:right;
+    }
+  }
+  .plan-table{
+    @include table_border();
+    border-radius:10px;
+    width:100%;
+    table-layout:fixed;
+    margin:0 auto;
+    line-height:2;
+    thead{
+      background-color:#afa;
+      th{
+        text-align:center;
+        font-weight:bold;
+        @include table_border();
+      }
+      th.th-day{
+        width:70px;
+      }
+    }
+    tbody{
+      td{
+        @include table_border();
+        padding:5px;
+      }
+      .plan-right{
+        width:90%;
+        line-height:1.3em;
+        .disp-plan{
+
+          &-title{
+            font-weight:bold;
+            padding:0;
+          }
+          .content{
+            margin-left:10px;
+            .plan-edit-button{
+              margin-bottom:5px;
+            }
+            .action{
+              display:flex;
+              justify-content:start;
+              margin:10px 0;
+              .plan-edit-icon,.plan-comment-icon{
+                margin-left:10px;
+                font-size:1.3em;
+              }
+            }
+            .comments{
+              padding: 10px ;
+              margin-bottom:5px;
+              background-color: white;
+              width: 95%;
+              border:solid 1px #d4d4d5;
+              border-radius:10px;
+              .comment-data{
+                .comment-upper{
+                  //display:flex;
+                  //justify-content:start;
+                  .comment-user{
+                    font-weight:bold;  
+                  }
+                  .comment-message{
+                    margin-left:10px;
+                  }
+                }
+                .comment-lower{
+                  display:flex;
+                  justify-content:space-between;
+                  font-size:0.8em;
+                }
+              }
+            }
+          }
+        }
+        .plan-add-button{
+          float:right;
+        }
+      }
+      .today{
+        background-color:#d5f3d5;
+      }
+      .holiday ,.sunday{
+        color:red;
+        background-color:#ffdddd;
+      }
+      .saturday{
+        color:blue;
+        background-color:#ddddff;
+      }
+    }
+  }
+}
+
+.new-plan,.edit-plan{
+  @include form_set();
+  padding:10px;
+  .input-text{
+    @include input_text();
+  }
+  .actions{
+    margin:10px 0;
+    display:flex;
+    justify-content: space-between;
+  }
+}
+.password{
+  @include form_set();
+  padding:10px;
+  .input-text{
+    @include input_text();
+  }
+  .actions{
+    margin:10px 0;
+    display:flex;
+    justify-content: space-between;
+  }
+}

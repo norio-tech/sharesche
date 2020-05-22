@@ -1,0 +1,37 @@
+.header
+  .header-logo
+    =link_to image_tag("logo.png",class: "logo"),"/"
+    %span{ style: "color:white" }
+  %ul.header-menus
+    - if current_user
+      %li
+        = link_to current_user.name, schedules_path
+      %li
+        = link_to "アカウント編集",edit_user_registration_path
+      %li
+        = link_to "ログアウト",destroy_user_session_path ,method: :delete
+    - else
+      %li
+        = link_to "新規登録", new_user_registration_path
+      %li
+        = link_to "ログイン", new_user_session_path
+  #nav-drawer
+    %input#nav-input.nav-unshown{:type => "checkbox"}
+    %label#nav-open{:for => "nav-input"}
+      %span
+    %label#nav-close.nav-unshown{:for => "nav-input"}
+    #nav-content
+      %ul.nav-menus
+        - if current_user
+          %li
+            = link_to current_user.name, schedules_path
+          %li
+            = link_to "アカウント編集",edit_user_registration_path
+          %li
+            = link_to "ログアウト",destroy_user_session_path ,method: :delete
+        - else
+          %li
+            = link_to "新規登録", new_user_registration_path
+          %li
+            = link_to "ログイン", new_user_session_path
+

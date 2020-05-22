@@ -1,0 +1,49 @@
+.new-comment
+  %h1
+    コメント追加
+  .breadcrumbs
+    = link_to "HOME",schedules_path
+    %i.angle.double.right.icon
+  .form-error
+    - @comment.errors.full_messages.each do |message|
+      = message
+    = @errmsg
+  .plan-data
+    - plan_time = ""
+    - if !@plan.start_time.blank?
+      - plan_time = @plan.start_time.to_s(:hhmm)
+    - if !@plan.end_time.blank?
+      - plan_time += "-" + @plan.end_time.to_s(:hhmm)
+    .plan-title
+      = @plan.title
+    - if !plan_time.blank?
+      .plan-time
+        = plan_time
+    - if !@plan.place.blank?
+      .plan-place
+        = @plan.place
+    - if !@plan.content.blank?
+      .plan-content
+        = simple_format(@plan.content)
+
+  = form_with model:[@schedule,@plan,@comment],url:schedule_plan_comment_index_path(transition:"schedule") ,local: true do |f|
+    .ui.form
+      .field
+        = f.label :message
+        = f.text_area :message,rows:5
+    .actions
+      .empty
+      = f.submit "登録", class: 'ui primary button'
+  .comments
+    -@comments.each do |comment|
+      .comment-data
+        .comment-upper
+          .comment-user
+            =comment.user.name
+            \:
+          .comment-message
+            =simple_format(comment.message)
+        .comment-lower
+          .empty
+          .comment-created-at
+            =comment.created_at

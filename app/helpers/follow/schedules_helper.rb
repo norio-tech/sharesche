@@ -1,0 +1,2 @@
+module Follow::SchedulesHelper
+end

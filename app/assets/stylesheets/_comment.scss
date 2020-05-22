@@ -1,0 +1,33 @@
+.new-comment,.edit-comment{
+  @include form_set();
+  padding:10px;
+  .plan-data{
+    .plan-title{
+      font-size:1.3em;
+    }
+  }
+  .input-text{
+    @include input_text();
+  }
+  .actions{
+    margin:10px 0;
+    display:flex;
+    justify-content: space-between;
+  }
+  .comments{
+    .comment-data{
+      .comment-upper{
+        display:flex;
+        justify-content:start;
+        .comment-user{
+          margin:0 10px;
+          font-weight:bold;  
+        }
+      }
+      .comment-lower{
+        display:flex;
+        justify-content:space-between;
+      }
+    }
+  }
+}

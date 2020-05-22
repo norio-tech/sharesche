@@ -1,0 +1,27 @@
+@mixin form_set() {
+  width:90%;
+  max-width:500px;
+  background-color:$form_color;
+  margin:20px auto;
+  border-radius:10px;
+  box-shadow: 0 2px 6px #c1ced7;
+}
+@mixin container() {
+  width:90%;
+  max-width:500px;
+  background-color:$form_color;
+  margin:20px auto;
+  border-radius:10px;
+  box-shadow: 0 2px 6px #c1ced7;
+  padding:10px;
+}
+@mixin input_text(){
+  width:100%;
+  max-width:500px;
+}
+@mixin ui_border{
+  border:solid 1px $ui_border_color;
+}
+@mixin table_border{
+  border:solid 1px #bcbcbc
+}

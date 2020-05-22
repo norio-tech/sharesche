@@ -1,0 +1,9 @@
+.main.users-index
+  .container
+    %h1.users-heading ユーザー一覧
+    - @users.each do |user|
+      .users-index-item
+        .user-left
+          %img{:src => "/user_images/#{user.image_name}"}/
+        .user-right
+          = link_to(user.name, "/users/#{user.id}")

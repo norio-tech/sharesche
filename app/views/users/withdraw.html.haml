@@ -1,0 +1,12 @@
+.users-edit
+  .container
+    .form-heading 退会する
+    .form.users-form
+      .form-body
+        %p 退会するとスケジュール情報はすべて削除されます。
+        %p
+          ユーザー名：#{@user.name}
+        %p
+          メールアドレス：#{@user.email}
+        = link_to("/users/#{@user.id}/destroy",  method: :delete, data: {confirm: "退会するとスケジュール情報はすべて削除されます。退会してよろしいですか？"}) do
+          %span.btn.withdraw-btn 退会する

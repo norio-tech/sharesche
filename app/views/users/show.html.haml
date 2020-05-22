@@ -1,0 +1,19 @@
+.main.user-show
+  .container
+    .user
+      %img{:src => "/user_images/#{@user.image_name}"}/
+      %h2= @user.name
+      %p= @user.email
+      - if @user.id == @current_user.id
+        = link_to("編集", "/users/#{@user.id}/edit")
+    %ul.user-tabs
+      %li.active= link_to("投稿", "/users/#{@user.id}")
+      %li= link_to("いいね!", "/users/#{@user.id}/likes")
+    - @user.posts.each do |post|
+      .posts-index-item
+        .post-left
+          %img{:src => "/user_images/#{post.user.image_name}"}/
+        .post-right
+          .post-user-name
+            = link_to(post.user.name, "/users/#{post.user.id}")
+          = link_to(post.content, "/posts/#{post.id}")
