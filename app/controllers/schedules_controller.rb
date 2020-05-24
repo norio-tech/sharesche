@@ -31,7 +31,7 @@ class SchedulesController < ApplicationController
     )
     #エラーチェック
     @errchk = nil
-    if !params[:sharesche_key].blank?
+    if !schedule_params[:sharesche_key].blank?
       @errchk = Schedule.find_by(sharesche_key: schedule_params[:sharesche_key])
     end
     if !@errchk.blank?
