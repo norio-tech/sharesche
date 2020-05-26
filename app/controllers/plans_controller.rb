@@ -1,4 +1,5 @@
 class PlansController < ApplicationController
+  before_action :ensure_correct_user ,only:  [:new,:create,:edit,:update]
   def new
     @error_message = ""
     @plan = Plan.new
@@ -66,5 +67,12 @@ class PlansController < ApplicationController
       :content,
       :month
       )
+  end
+  def ensure_correct_user
+    # paramsにsharesche_keyがない場合は表示しない
+    schedule = Schedule.find(params[:schedule_id])
+    if schedule.user_id != current_user.id
+      redirect_to schedules_path
+    end
   end
 end

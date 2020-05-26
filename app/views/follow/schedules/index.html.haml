@@ -15,7 +15,7 @@
         %i.list.icon
   - @follows.order("id").each do |follow|
     .schedules-index__item
-      = link_to follow_schedule_path(id: follow.schedule.id, month: Date.current.to_s(:month)) do
+      = link_to follow_schedule_path(id: follow.schedule.id, month: Date.current.to_s(:month), sharesche_key: follow.schedule.sharesche_key) do
         .schedule-name
           = follow.schedule.name
         .schedule-message

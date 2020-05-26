@@ -33,7 +33,7 @@
       = link_to follow_schedule_path(id:@schedule.id,month: @nm),class:"next-month" do
         次月
         %i.angle.double.right.icon
-    = link_to "一括登録",new_schedule_bulk_path(schedule_id: @schedule.id,month: @m),class:"all-edit mini ui red button"
+    -# = link_to "一括登録",new_schedule_bulk_path(schedule_id: @schedule.id,month: @m),class:"all-edit mini ui red button"
   - i = 1
   
   - imonth = @m[4,2].to_i
@@ -73,11 +73,10 @@
                   .disp-plan-content
                     = simple_format(plan.content)
                 .action
-                  /= link_to "編集",edit_schedule_plan_path(schedule_id: params[:id],id: plan.id),class:"mini ui button plan-edit-button"
                   = link_to new_schedule_plan_comment_path(schedule_id: params[:id],plan_id: plan.id),class:"ui edit icon plan-edit-button" do
                     %i.comment.outline.icon.plan-comment-icon
-                  = link_to edit_schedule_plan_path(schedule_id: params[:id],id: plan.id),class:"ui edit icon plan-edit-button" do
-                    %i.edit.icon.plan-edit-icon
+                  -# = link_to edit_schedule_plan_path(schedule_id: params[:id],id: plan.id),class:"ui edit icon plan-edit-button" do
+                  -#   %i.edit.icon.plan-edit-icon
                 -if !plan.comments.empty?
                   .comments
                     -plan.comments.each do |comment|
@@ -91,5 +90,5 @@
                           .empty
                           .comment-created-at
                             =comment.created_at
-          = link_to "予定を追加",new_schedule_plan_path(schedule_id:params[:id] ,plan_day:plan_day.to_s),class:"mini ui teal button plan-add-button"
+          -# = link_to "予定を追加",new_schedule_plan_path(schedule_id:params[:id] ,plan_day:plan_day.to_s),class:"mini ui teal button plan-add-button"
         - i += 1

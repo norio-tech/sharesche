@@ -14,7 +14,7 @@ class CommentController < ApplicationController
       message: comment_params[:message]
     )
     if @comment.save
-      flash[:notice] = "スケジュールを作成しました"
+      flash[:notice] = "コメントを作成しました"
       if params[:transition] == "schedule"
         redirect_to schedule_path(id:plan.schedule_id,month:plan.plan_day.to_s(:month))
       elsif params[:transition] == "follow"

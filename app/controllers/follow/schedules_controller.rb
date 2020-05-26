@@ -1,5 +1,6 @@
 class Follow::SchedulesController < ApplicationController
   before_action :const
+  before_action :ensure_correct_user ,only:  [:show]  
   def index
     @follows = Follow.includes([:schedule,schedule: :user]).where(user_id: current_user.id)
   end
@@ -19,7 +20,7 @@ class Follow::SchedulesController < ApplicationController
         flash[:notice] = "パスワードを入力してください"
         redirect_to password_follow_schedules_path(sharesche_key: params[:sharesche_key])
       else
-        redirect_to follow_schedule_path(id: @schedule.id,month: m)
+        redirect_to follow_schedule_path(id: @schedule.id,month: m,sharesche_key: @schedule.sharesche_key)
       end
     else
       @errmsg = "シェアッシュキーが存在しません"
@@ -33,7 +34,7 @@ class Follow::SchedulesController < ApplicationController
     inputPassword = params.require(:schedule)[:password]
     @schedule = Schedule.find_by(sharesche_key: params[:sharesche_key])
     if @schedule.password == inputPassword
-      redirect_to follow_schedule_path(id: @schedule.id,month: Date.current.to_s(:month))
+      redirect_to follow_schedule_path(id: @schedule.id,month: Date.current.to_s(:month),sharesche_key: @schedule.sharesche_key)
     else
       @schedule = Schedule.new
       @errmsg = "スケジュールパスワードが違います"
@@ -63,7 +64,7 @@ class Follow::SchedulesController < ApplicationController
     @schedule = Schedule.find_by(id: params[:id])
     @follow = Follow.new(user_id: current_user.id, schedule_id: @schedule.id, schedule_chkdig: @schedule.chkdig, schedule_sharesche_key: @schedule.sharesche_key)
     @follow.save
-    redirect_to follow_schedule_path(id: @schedule.id,month: params[:month])
+    redirect_to follow_schedule_path(id: @schedule.id,month: params[:month],sharesche_key: @schedule.sharesche_key)
   end
   def follow_destroy
     @follow = Follow.find(params[:id])
@@ -73,10 +74,50 @@ class Follow::SchedulesController < ApplicationController
     #シェアッシュキーが変更されている場合は、indexに戻る
     @schedule = Schedule.find_by(id:schedule_id ,sharesche_key: sharesche_key)
     if @schedule
-      redirect_to follow_schedule_path(id: @schedule.id,month: params[:month])
+      redirect_to follow_schedule_path(id: @schedule.id,month: params[:month],sharesche_key: @schedule.sharesche_key)
     else
       redirect_to follow_schedules_path
     end
   end
 
+  private
+  def ensure_correct_user
+    # paramsにsharesche_keyがない場合は表示しない
+    if is_sharesche_key
+      ensure_correct_schedule_share
+    else
+      schedule = Schedule.find_by(id: params[:id])
+      if schedule.user_id != current_user.id
+        flash[:notice] = "権限がありません"
+        redirect_to schedules_path
+      end
+    end
+  end
+  #許可されていないスケジュールを表示しない
+  def ensure_correct_schedule_share
+    schedule = Schedule.find_by(sharesche_key: params[:sharesche_key])
+
+    #follow_scheduleの存在チェック、一致データがある場合、パスワード入力の必要はなし
+    if current_user 
+      isfollow = Follow.find_by(user_id: current_user, schedule_sharesche_key: schedule.sharesche_key, schedule_chkdig: schedule.chkdig)
+      if isfollow
+        return
+      end
+    end
+
+    if schedule.is_password
+      flash[:notice] = "パスワードを入力してください"
+      redirect_to authentication_follow_schedule
+    end    
+  end
+
+  # 有効なsharesche_keyか判断する
+  def is_sharesche_key
+    schedule = Schedule.find_by(sharesche_key: params[:sharesche_key])
+    if schedule
+      return true
+    else
+      return false
+    end
+  end
 end

@@ -37,7 +37,8 @@
         - if plan_day == Date.current
           - today = "today"
         %td{class: "plan-right #{today}"}
-          - @plans.where(plan_day: plan_day).each do |plan|
+          -# - @plans.where(plan_day: plan_day).each do |plan|
+          - @schedule.plans.where(plan_day: plan_day).each do |plan|
             - plan_time = ""
             - if !plan.start_time.blank?
               - plan_time = plan.start_time.to_s(:hhmm)

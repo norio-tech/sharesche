@@ -1,5 +1,6 @@
 class SchedulesController < ApplicationController
   before_action :const
+  before_action :ensure_correct_user ,only:  [:show]
 
   def index
     @schedules = Schedule.where(user_id: current_user.id)
@@ -114,7 +115,7 @@ class SchedulesController < ApplicationController
     @pm = d.prev_month.to_s(:month)
 
     #スケジュール情報を取得
-    @schedule = Schedule.find_by(id: params[:id])
+    @schedule = Schedule.includes(:plans).find_by(id: params[:id])
     @plans = Plan.includes(:comments).where(schedule_id: @schedule.id)
   end
 
@@ -124,14 +125,21 @@ class SchedulesController < ApplicationController
     params.require(:schedule).permit(:name,:message,:sharesche_key,:password)
   end
 
-  #許可されていないスケジュールを表示しない
-  def ensure_correct_schedule
-    schedule = Schedule.find_by(sharesche_key: params[:sharesche_key])
-
-    #自分のスケジュール以外はキーが必須
-    if schedule.user_id != current_user.id
-      
+  def ensure_correct_user
+    # paramsにsharesche_keyがない場合は表示しない
+    if is_sharesche_key
+      ensure_correct_schedule_share
+    else
+      schedule = Schedule.find_by(id: params[:id])
+      if schedule.user_id != current_user.id
+        flash[:notice] = "権限がありません"
+        redirect_to schedules_path
+      end
     end
+  end
+  #許可されていないスケジュールを表示しない
+  def ensure_correct_schedule_share
+    schedule = Schedule.find_by(sharesche_key: params[:sharesche_key])
 
     #follow_scheduleの存在チェック、一致データがある場合、パスワード入力の必要はなし
     if current_user 
@@ -144,7 +152,16 @@ class SchedulesController < ApplicationController
     if schedule.is_password
       flash[:notice] = "パスワードを入力してください"
       redirect_to authentication_follow_schedule
+    end    
+  end
+
+  # 有効なsharesche_keyか判断する
+  def is_sharesche_key
+    schedule = Schedule.find_by(sharesche_key: params[:sharesche_key])
+    if schedule
+      return true
+    else
+      return false
     end
-    
   end
 end
