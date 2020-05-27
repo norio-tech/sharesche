@@ -13,7 +13,7 @@ PASS:11111111
 # 使用イメージ
 
 他ユーザーのスケジュールを参照する
-https://gyazo.com/abbdcacf00354a5b3a30528c09a05360
+<img src="https://github.com/norio-tech/sharesche/blob/images/preview.gif?raw=true">
 # 制作背景
 プログラミングスクールに通い自分でWebアプリを作成できるようになったため、どうせなら自分自身が利用できるアプリを作成しようと思いスケジュール共有アプリを作成しました。
 
