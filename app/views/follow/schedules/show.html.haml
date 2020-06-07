@@ -26,11 +26,11 @@
     = @m[0,4] + "/" + @m[4,2]
   .schedule-setting
     %span.select-month
-      = link_to follow_schedule_path(id:@schedule.id,month: @pm),class:"prev-month" do
+      = link_to follow_schedule_path(id:@schedule.id,month: @pm,sharesche_key: @schedule.sharesche_key),class:"prev-month" do
         %i.angle.double.left.icon
         前月
       ||
-      = link_to follow_schedule_path(id:@schedule.id,month: @nm),class:"next-month" do
+      = link_to follow_schedule_path(id:@schedule.id,month: @nm,sharesche_key: @schedule.sharesche_key),class:"next-month" do
         次月
         %i.angle.double.right.icon
     -# = link_to "一括登録",new_schedule_bulk_path(schedule_id: @schedule.id,month: @m),class:"all-edit mini ui red button"
