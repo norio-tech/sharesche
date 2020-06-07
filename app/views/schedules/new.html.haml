@@ -27,13 +27,13 @@
         = f.text_field :sharesche_key,pattern: "^[0-9A-Za-z]+$"
       %p.annotation *半角英数字のみ
       %p.annotation *シェアッシュキーを設定するとスケジュールを共有できます
-    .field
-      .field-label
-        = f.label :password
-      .ui.input.input-text
-        = f.text_field :password,pattern: "^[0-9A-Za-z]+$"
-      %p.annotation *半角英数字のみ
-      %p.annotation *スケジュールパスワードを設定すると共有時にパスワードの入力が必須になります
+    -# .field
+    -#   .field-label
+    -#     = f.label :password
+    -#   .ui.input.input-text
+    -#     = f.text_field :password,pattern: "^[0-9A-Za-z]+$"
+    -#   %p.annotation *半角英数字のみ
+    -#   %p.annotation *スケジュールパスワードを設定すると共有時にパスワードの入力が必須になります
     .actions
       .empty
       = f.submit "登録", class: 'ui primary button'
